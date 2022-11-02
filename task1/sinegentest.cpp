@@ -18,7 +18,7 @@ tfp->open ("sinegen.vcd");
 
 //init Vbuddy
 if (vbdOpen()!=1) return(-1);
-vbdHeader("Sine ☹︎");
+vbdHeader("SineWave");
 vbdSetMode(0);
 
 //initialize simulation inputs
@@ -30,6 +30,8 @@ top->incr = 1;
 //run simulation for many clock cycles 
 for (i=0; i<1000000; i++){
 
+    top->incr = vbdValue();
+    
     //dump variables into VCD file and toggle clock
     for(clk=0; clk<2; clk++) {
         tfp->dump (2*i+clk);
