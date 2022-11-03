@@ -28,8 +28,9 @@ int main(int argc, char **argv, char **env) {
   // initialize simulation input 
   top->clk = 1;
   top->rst = 0;
-  top->wr = 1;
-  top->rd = 1;
+  top->en = 1;
+  top->wr_en = 1;
+  top->rd_en = 1;
   top->offset = 64;
   
   // intialize variables for analogue output
@@ -52,12 +53,12 @@ int main(int argc, char **argv, char **env) {
     vbdCycle(simcyc);
 
     // either simulation finished, or 'q' is pressed
-    if ((Verilated::gotFinish()) || (vbdGetkey()=='q')) 
+    if ((Verilated::gotFinish()) || (vbdGetkey()=='q')){
+      vbdClose();     // ++++
+      tfp->close(); 
+      printf("Exiting\n");
       exit(0);
+    }
   }
 
-  vbdClose();     // ++++
-  tfp->close(); 
-  printf("Exiting\n");
-  exit(0);
 }
